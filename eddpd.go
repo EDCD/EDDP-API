@@ -16,9 +16,9 @@ import (
 	"time"
 
 	"github.com/ajays20078/go-http-logger" // Log HTTP requests
-	"github.com/nytimes/gziphandler"       // GZip handler
 	"github.com/gorilla/mux"               // URL-based routing
 	_ "github.com/mattn/go-sqlite3"        // SQLite driver
+	"github.com/nytimes/gziphandler"       // GZip handler
 )
 
 // Database connections
@@ -50,8 +50,8 @@ func main() {
 	r.HandleFunc("/log", LogHandler).Methods("POST")
 	r.HandleFunc("/profile", ProfileHandler).Methods("POST")
 	// Static JSON files
-        r.PathPrefix("/_").Handler(http.StripPrefix("/_", http.FileServer(http.Dir("/home/eddp/files"))))
-        r.PathPrefix("/.").Handler(http.StripPrefix("/", http.FileServer(http.Dir("/home/eddp/files"))))
+	r.PathPrefix("/_").Handler(http.StripPrefix("/_", http.FileServer(http.Dir("/home/eddp/files"))))
+	r.PathPrefix("/.").Handler(http.StripPrefix("/", http.FileServer(http.Dir("/home/eddp/files"))))
 	// Generic database handler
 	r.HandleFunc("/{category}/{item}", DatabaseHandler).Methods("GET")
 
@@ -90,10 +90,10 @@ func LogHandler(w http.ResponseWriter, r *http.Request) {
 		log.Print(err)
 	}
 
-	regex, _ := regexp.Compile("^[^:]*");
-	ipaddr := regex.FindString(r.RemoteAddr);
+	regex, _ := regexp.Compile("^[^:]*")
+	ipaddr := regex.FindString(r.RemoteAddr)
 
-	err = ioutil.WriteFile("logs/" + ipaddr + "-" + time.Now().Format("20060102T150405"), body, 0644);
+	err = ioutil.WriteFile("logs/"+ipaddr+"-"+time.Now().Format("20060102T150405"), body, 0644)
 	if err != nil {
 		log.Print(err)
 	}

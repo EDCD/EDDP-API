@@ -83,23 +83,23 @@ func ImportBodies() {
 			log.Fatal(err)
 		}
 		for k, v := range body {
-			if (v == nil) {
+			if v == nil {
 				delete(body, k)
 			} else {
 				switch vv := v.(type) {
-					case []interface{}:
-						if (len(vv) == 0) {
-							delete(body, k)
-						}
+				case []interface{}:
+					if len(vv) == 0 {
+						delete(body, k)
+					}
 				}
 			}
 
 		}
 		munged, err := json.Marshal(body)
 
-		bodyId, err := strconv.ParseUint(string(body["id"].(json.Number)), 10, 64);
+		bodyId, err := strconv.ParseUint(string(body["id"].(json.Number)), 10, 64)
 		assertNil(err)
-		systemId, err := strconv.ParseUint(string(body["system_id"].(json.Number)), 10, 64);
+		systemId, err := strconv.ParseUint(string(body["system_id"].(json.Number)), 10, 64)
 		assertNil(err)
 		_, err = eddpDb.Exec("INSERT INTO bodies(id, system_id, name, data) VALUES(?, ?, ?, ?)", bodyId, systemId, body["name"].(string), string(munged))
 		assertNil(err)

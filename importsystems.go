@@ -81,7 +81,7 @@ func ImportSystems() {
 
 		buffer.WriteString("{")
 
-		if (line[0] == "") {
+		if line[0] == "" {
 			fmt.Println("Line without ID: ")
 			continue
 		}
@@ -89,7 +89,7 @@ func ImportSystems() {
 		buffer.WriteString("\"id\":")
 		buffer.WriteString(id)
 
-		if (line[2] == "") {
+		if line[2] == "" {
 			fmt.Println("Line without name: ")
 			continue
 		}
@@ -98,7 +98,7 @@ func ImportSystems() {
 		buffer.WriteString(name)
 		buffer.WriteString("\"")
 
-		if (line[3] == "") {
+		if line[3] == "" {
 			fmt.Println("Line without X co-ordinate: ")
 			continue
 		}
@@ -106,7 +106,7 @@ func ImportSystems() {
 		buffer.WriteString(line[3])
 		x := line[3]
 
-		if (line[4] == "") {
+		if line[4] == "" {
 			fmt.Println("Line without Y co-ordinate: ")
 			continue
 		}
@@ -114,7 +114,7 @@ func ImportSystems() {
 		buffer.WriteString(line[4])
 		y := line[4]
 
-		if (line[5] == "") {
+		if line[5] == "" {
 			fmt.Println("Line without Z co-ordinate: ")
 			continue
 		}
@@ -122,71 +122,71 @@ func ImportSystems() {
 		buffer.WriteString(line[5])
 		z := line[5]
 
-		if (line[6] != "") {
+		if line[6] != "" {
 			buffer.WriteString(",\"population\":")
 			buffer.WriteString(line[6])
 		}
 
-		if (line[7] == "1") {
+		if line[7] == "1" {
 			buffer.WriteString(",\"is_populated\":true")
 		} else {
 			buffer.WriteString(",\"is_populated\":false")
 		}
 
-		if (line[9] != "") {
+		if line[9] != "" {
 			buffer.WriteString(",\"government\":\"")
 			buffer.WriteString(line[9])
 			buffer.WriteString("\"")
 		}
 
-		if (line[11] != "") {
+		if line[11] != "" {
 			buffer.WriteString(",\"allegiance\":\"")
 			buffer.WriteString(line[11])
 			buffer.WriteString("\"")
 		}
 
-		if (line[13] != "") {
+		if line[13] != "" {
 			buffer.WriteString(",\"state\":\"")
 			buffer.WriteString(line[13])
 			buffer.WriteString("\"")
 		}
 
-		if (line[15] != "") {
+		if line[15] != "" {
 			buffer.WriteString(",\"security\":\"")
 			buffer.WriteString(line[15])
 			buffer.WriteString("\"")
 		}
 
-		if (line[17] != "") {
+		if line[17] != "" {
 			buffer.WriteString(",\"primary_economy\":\"")
 			buffer.WriteString(line[17])
 			buffer.WriteString("\"")
 		}
 
-		if (line[18] != "") {
+		if line[18] != "" {
 			buffer.WriteString(",\"power\":\"")
 			buffer.WriteString(line[18])
 			buffer.WriteString("\"")
 		}
 
-		if (line[19] != "") {
+		if line[19] != "" {
 			buffer.WriteString(",\"power_state\":\"")
 			buffer.WriteString(line[19])
 			buffer.WriteString("\"")
 		}
 
-		if (line[22] != "") {
+		if line[22] != "" {
 			buffer.WriteString(",\"updated_at\":")
 			buffer.WriteString(line[22])
 		}
 
-		if (line[25] != "") {
+		if line[25] != "" {
 			buffer.WriteString(",\"faction\":\"")
 			buffer.WriteString(line[25])
 			buffer.WriteString("\"")
 		}
 
-		if (line[27] != "") {
+		if line[27] != "" {
 			buffer.WriteString(",\"reserve_type\":\"")
 			buffer.WriteString(line[27])
 			buffer.WriteString("\"")
@@ -197,7 +197,6 @@ func ImportSystems() {
 		_, err = eddpDb.Exec("INSERT INTO systems(id, x, y, z, name, data) VALUES(?, ?, ?, ?, ?, ?)", id, x, y, z, name, buffer.String())
 		assertNotNil(err)
 	}
-
 
 	_, err = eddpDb.Exec("COMMIT")
 	assertNotNil(err)
