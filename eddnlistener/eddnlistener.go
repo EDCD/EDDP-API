@@ -21,6 +21,8 @@ import (
 
 // Constants
 var dataDir string = config.GetEnvWithDefault("EDDP_API_DATA_DIR", "./data")
+var eddnListenerURL string = config.GetEnvWithDefault("EDDP_API_EDDN_LISTENER_URL", "tcp://eddn.edcd.io:9500")
+var eddnPublisherURL string = config.GetEnvWithDefault("EDDP_API_EDDN_PUBLISHER_URL", "tcp://*:5556")
 
 var governments = struct {
 	m map[string]string
@@ -539,11 +541,11 @@ func main() {
 
 		subscriber, _ := zmq.NewSocket(zmq.SUB)
 		defer subscriber.Close()
-		subscriber.Connect("tcp://eddn.edcd.io:9500")
+		subscriber.Connect(eddnListenerURL)
 		subscriber.SetSubscribe("")
 
 		publisher, _ := zmq.NewSocket(zmq.PUB)
-		publisher.Bind("tcp://*:5556")
+		publisher.Bind(eddnPublisherURL)
 		defer publisher.Close()
 
 		for {
