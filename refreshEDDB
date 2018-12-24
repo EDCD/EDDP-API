@@ -1,6 +1,7 @@
 #!/bin/bash
 
 # Fetch the data that we need to recreate the databases
+mkdir -p ./data
 curl -s -o ./data/eddb/systems.csv https://eddb.io/archive/v5/systems.csv
 curl -s -o ./data/eddb/stations.jsonl https://eddb.io/archive/v5/stations.jsonl
 curl -s -o ./data/eddb/bodies.jsonl https://eddb.io/archive/v5/bodies.jsonl
