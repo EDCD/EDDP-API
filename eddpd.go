@@ -29,6 +29,7 @@ var errorDb *sql.DB
 
 var dataDir string = config.GetEnvWithDefault("EDDP_API_DATA_DIR", "./data")
 var httpAddr string = config.GetEnvWithDefault("EDDP_API_HTTP_ADDR", ":8080")
+var httpRoot string = config.GetEnvWithDefault("EDDP_API_HTTP_ROOT", "./data/http")
 
 func main() {
 	runtime.GOMAXPROCS(runtime.NumCPU())
@@ -54,8 +55,8 @@ func main() {
 	r.HandleFunc("/log", LogHandler).Methods("POST")
 	r.HandleFunc("/profile", ProfileHandler).Methods("POST")
 	// Static JSON files
-	r.PathPrefix("/_").Handler(http.StripPrefix("/_", http.FileServer(http.Dir("/home/eddp/files"))))
-	r.PathPrefix("/.").Handler(http.StripPrefix("/", http.FileServer(http.Dir("/home/eddp/files"))))
+	r.PathPrefix("/_").Handler(http.StripPrefix("/_", http.FileServer(http.Dir(httpRoot))))
+	r.PathPrefix("/.").Handler(http.StripPrefix("/", http.FileServer(http.Dir(httpRoot))))
 	// Generic database handler
 	r.HandleFunc("/{category}/{item}", DatabaseHandler).Methods("GET")
 

@@ -1,9 +1,11 @@
 #!/bin/bash
 
 dataDir=${EDDP_API_DATA_DIR:-"./data"}
+httpRoot=${EDDP_API_HTTP_ROOT:-"./data/http"}
 
 # Create a new datafile and populate it
 mkdir -p "${dataDir}/sqlite"
+mkdir -p "${httpRoot}"
 rm -f "${dataDir}/sqlite/eddp-new.sqlite"
 sqlite3 "${dataDir}/sqlite/eddp-new.sqlite" "CREATE TABLE DUMMY(dummy int); DROP TABLE DUMMY;"
 ./importsystems

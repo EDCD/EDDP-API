@@ -16,6 +16,7 @@ Environment variable          | Default value               | Meaning
 ----------------------------- | --------------------------- | -------
 `EDDP_API_DATA_DIR`           | `./data`                    | Directory for downloaded data and SQL database
 `EDDP_API_HTTP_ADDR`          | `":8080"`                   | TCP address for the HTTP server
+`EDDP_API_HTTP_ROOT`          | `"./data/http"`             | Static file root directory for the HTTP server
 `EDDP_API_EDDN_LISTENER_URL`  | `"tcp://eddn.edcd.io:9500"` | URL for the EDDN listener
 `EDDP_API_EDDN_PUBLISHER_URL` | `"tcp://*:5556"`            | URL for the EDDN publisher
 
