@@ -14,11 +14,14 @@ import (
 	"strconv"
 	"strings"
 
+	"./config"
 	_ "github.com/mattn/go-sqlite3" // SQLite driver
 )
 
 // Database connections
 var eddpDb *sql.DB
+
+var dataDir string = config.GetEnvWithDefault("EDDP_API_DATA_DIR", "./data")
 
 type Systems struct {
 	System []struct {
@@ -35,7 +38,7 @@ func assertNil(e error) {
 
 func main() {
 	var err error
-	eddpDb, err = sql.Open("sqlite3", "./data/sqlite/eddp-new.sqlite")
+	eddpDb, err = sql.Open("sqlite3", dataDir+"/sqlite/eddp-new.sqlite")
 	assertNil(err)
 	defer eddpDb.Close()
 
@@ -66,7 +69,7 @@ func SetupIndices() {
 
 func ImportStations() {
 	// Import the commodities locally
-	commoditiesFile, err := ioutil.ReadFile("./data/eddb/commodities.json")
+	commoditiesFile, err := ioutil.ReadFile(dataDir + "/eddb/commodities.json")
 	assertNil(err)
 	var commoditiesDefinitions []map[string]interface{}
 	err = json.Unmarshal(commoditiesFile, &commoditiesDefinitions)
@@ -77,7 +80,7 @@ func ImportStations() {
 	}
 
 	// Fetch the market listings
-	listingsFile, err := os.Open("./data/eddb/listings.csv")
+	listingsFile, err := os.Open(dataDir + "/eddb/listings.csv")
 	assertNil(err)
 	defer listingsFile.Close()
 
@@ -169,7 +172,7 @@ func ImportStations() {
 	}
 
 	// Import the factions locally
-	factionsFile, err := os.Open("./data/eddb/factions.csv")
+	factionsFile, err := os.Open(dataDir + "/eddb/factions.csv")
 	assertNil(err)
 	defer factionsFile.Close()
 
@@ -205,7 +208,7 @@ func ImportStations() {
 	}
 
 	// Work through the stations file
-	file, err := os.Open("./data/eddb/stations.jsonl")
+	file, err := os.Open(dataDir + "/eddb/stations.jsonl")
 	assertNil(err)
 	defer file.Close()
 

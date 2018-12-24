@@ -9,11 +9,14 @@ import (
 	"log"
 	"os"
 
+	"./config"
 	_ "github.com/mattn/go-sqlite3" // SQLite driver
 )
 
 // Database connections
 var eddpDb *sql.DB
+
+var dataDir string = config.GetEnvWithDefault("EDDP_API_DATA_DIR", "./data")
 
 type Systems struct {
 	System []struct {
@@ -30,7 +33,7 @@ func assertNotNil(e error) {
 
 func main() {
 	var err error
-	eddpDb, err = sql.Open("sqlite3", "./data/sqlite/eddp-new.sqlite")
+	eddpDb, err = sql.Open("sqlite3", dataDir+"/sqlite/eddp-new.sqlite")
 	assertNotNil(err)
 	defer eddpDb.Close()
 
@@ -58,7 +61,7 @@ func SetupIndices() {
 }
 
 func ImportSystems() {
-	file, err := os.Open("./data/eddb/systems.csv")
+	file, err := os.Open(dataDir + "/eddb/systems.csv")
 	assertNotNil(err)
 	defer file.Close()
 

@@ -14,11 +14,14 @@ import (
 	"strings"
 	"time"
 
+	"../config"
 	_ "github.com/mattn/go-sqlite3" // SQLite driver
 	zmq "github.com/pebbe/zmq4"     // ZeroMQ
 )
 
 // Constants
+var dataDir string = config.GetEnvWithDefault("EDDP_API_DATA_DIR", "./data")
+
 var governments = struct {
 	m map[string]string
 }{m: map[string]string{
