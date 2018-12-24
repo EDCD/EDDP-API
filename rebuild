@@ -1,6 +1,7 @@
 #!/bin/bash
 
 # Create a new datafile and populate it
+mkdir -p ./data/sqlite
 rm -f ./data/sqlite/eddp-new.sqlite
 sqlite3 ./data/sqlite/eddp-new.sqlite "CREATE TABLE DUMMY(dummy int); DROP TABLE DUMMY;"
 ./importsystems
