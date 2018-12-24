@@ -28,6 +28,7 @@ var profileDb *sql.DB
 var errorDb *sql.DB
 
 var dataDir string = config.GetEnvWithDefault("EDDP_API_DATA_DIR", "./data")
+var httpAddr string = config.GetEnvWithDefault("EDDP_API_HTTP_ADDR", ":8080")
 
 func main() {
 	runtime.GOMAXPROCS(runtime.NumCPU())
@@ -59,7 +60,7 @@ func main() {
 	r.HandleFunc("/{category}/{item}", DatabaseHandler).Methods("GET")
 
 	http.Handle("/", gziphandler.GzipHandler(r))
-	err = http.ListenAndServe(":80", JsonContent(httpLogger.WriteLog(http.DefaultServeMux, os.Stdout)))
+	err = http.ListenAndServe(httpAddr, JsonContent(httpLogger.WriteLog(http.DefaultServeMux, os.Stdout)))
 	if err != nil {
 		log.Print("ListenAndServe: ", err)
 	}
