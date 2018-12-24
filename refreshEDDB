@@ -1,13 +1,15 @@
 #!/bin/bash
 
+dataDir=${EDDP_API_DATA_DIR:-"./data"}
+
 # Fetch the data that we need to recreate the databases
-mkdir -p ./data
-curl -s -o ./data/eddb/systems.csv https://eddb.io/archive/v5/systems.csv
-curl -s -o ./data/eddb/stations.jsonl https://eddb.io/archive/v5/stations.jsonl
-curl -s -o ./data/eddb/bodies.jsonl https://eddb.io/archive/v5/bodies.jsonl
-curl -s -o ./data/eddb/commodities.json https://eddb.io/archive/v5/commodities.json
-curl -s -o ./data/eddb/listings.csv https://eddb.io/archive/v5/listings.csv
-curl -s -o ./data/eddb/factions.csv https://eddb.io/archive/v5/factions.csv
-curl -s -o ./data/eddb/modules.json https://eddb.io/archive/v5/modules.json
+mkdir -p "${dataDir}/eddb"
+curl -s -o "${dataDir}/eddb/systems.csv" https://eddb.io/archive/v5/systems.csv
+curl -s -o "${dataDir}/eddb/stations.jsonl" https://eddb.io/archive/v5/stations.jsonl
+curl -s -o "${dataDir}/eddb/bodies.jsonl" https://eddb.io/archive/v5/bodies.jsonl
+curl -s -o "${dataDir}/eddb/commodities.json" https://eddb.io/archive/v5/commodities.json
+curl -s -o "${dataDir}/eddb/listings.csv" https://eddb.io/archive/v5/listings.csv
+curl -s -o "${dataDir}/eddb/factions.csv" https://eddb.io/archive/v5/factions.csv
+curl -s -o "${dataDir}/eddb/modules.json" https://eddb.io/archive/v5/modules.json
 
 ./rebuild
