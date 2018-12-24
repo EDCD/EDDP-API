@@ -22,6 +22,8 @@ import (
 	"github.com/nytimes/gziphandler"       // GZip handler
 )
 
+var version string = "2.2.0"
+
 // Database connections
 var eddpDb *sql.DB
 var profileDb *sql.DB
@@ -68,7 +70,7 @@ func main() {
 }
 
 func VersionHandler(w http.ResponseWriter, r *http.Request) {
-	io.WriteString(w, "2.2.0")
+	io.WriteString(w, version)
 }
 
 func ErrorHandler(w http.ResponseWriter, r *http.Request) {
