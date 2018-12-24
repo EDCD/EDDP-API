@@ -531,7 +531,7 @@ func main() {
 
 	for {
 		var err error
-		eddpDb, err = sql.Open("sqlite3", ".././data/sqlite/eddp.sqlite")
+		eddpDb, err = sql.Open("sqlite3", dataDir+"/sqlite/eddp.sqlite")
 		if err != nil {
 			log.Print(err)
 		}
