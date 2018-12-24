@@ -26,12 +26,12 @@ Environment variable          | Default value               | Meaning
 
 ## Usage
 
-* `refreshEDDB` to fetch the latest data from EDDB to `${DataDir}/eddb`. At the time of writing this totals about 3.5GB). This script calls ...
-* `rebuild` to import this fetched data into SQLite. On a MacBook Air this can take around 12 min and the resulting SQLlite file is around 8.5GB. Once it completes, you need to
+* `refreshEDDB` to fetch the latest data from EDDB to `${dataDir}/eddb`. At the time of writing this totals about 3.5GB). This script calls ...
+* `rebuild` to import this fetched data into SQLite. On a 2011 MacBook Air this can take around 12 min and the resulting SQLlite file is around 8.5GB. Once it completes, you need to
   * manually stop the servers (instructions to follow)
-  * replace `${DataDir}/sqlite/eddp.sqlite` with `${DataDir}/sqlite/eddp-new.sqlite`
+  * replace `${dataDir}/sqlite/eddp.sqlite` with `${dataDir}/sqlite/eddp-new.sqlite`
   * restart the servers.
-  * The raw data in `${DataDir}/eddb` can then be zipped or discarded.
+  * The raw data in `${dataDir}/eddb` can then be zipped or discarded.
 
 ## Server Deployment
 
