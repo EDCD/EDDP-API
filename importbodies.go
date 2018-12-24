@@ -30,7 +30,7 @@ func assertNil(e error) {
 
 func main() {
 	var err error
-	eddpDb, err = sql.Open("sqlite3", "/data/sqlite/eddp-new.sqlite")
+	eddpDb, err = sql.Open("sqlite3", "./data/sqlite/eddp-new.sqlite")
 	assertNil(err)
 	defer eddpDb.Close()
 
@@ -60,7 +60,7 @@ func SetupIndices() {
 }
 
 func ImportBodies() {
-	file, err := os.Open("/data/eddb/bodies.jsonl")
+	file, err := os.Open("./data/eddb/bodies.jsonl")
 	assertNil(err)
 	defer file.Close()
 

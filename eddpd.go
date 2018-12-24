@@ -30,15 +30,15 @@ func main() {
 	runtime.GOMAXPROCS(runtime.NumCPU())
 
 	var err error
-	eddpDb, err = sql.Open("sqlite3", "/data/sqlite/eddp.sqlite")
+	eddpDb, err = sql.Open("sqlite3", "./data/sqlite/eddp.sqlite")
 	if err != nil {
 		log.Print(err)
 	}
-	errorDb, err = sql.Open("sqlite3", "/data/sqlite/error.sqlite")
+	errorDb, err = sql.Open("sqlite3", "./data/sqlite/error.sqlite")
 	if err != nil {
 		log.Print(err)
 	}
-	profileDb, err = sql.Open("sqlite3", "/data/sqlite/profile.sqlite")
+	profileDb, err = sql.Open("sqlite3", "./data/sqlite/profile.sqlite")
 	if err != nil {
 		log.Print(err)
 	}

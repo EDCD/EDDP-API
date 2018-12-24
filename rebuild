@@ -1,8 +1,8 @@
 #!/bin/bash
 
 # Create a new datafile and populate it
-rm -f /data/sqlite/eddp-new.sqlite
-sqlite3 /data/sqlite/eddp-new.sqlite "CREATE TABLE DUMMY(dummy int); DROP TABLE DUMMY;"
+rm -f ./data/sqlite/eddp-new.sqlite
+sqlite3 ./data/sqlite/eddp-new.sqlite "CREATE TABLE DUMMY(dummy int); DROP TABLE DUMMY;"
 ./importsystems
 ./importstations
 ./importbodies
