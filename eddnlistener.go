@@ -14,7 +14,7 @@ import (
 	"strings"
 	"time"
 
-	"../config"
+	"./config"
 	"./dataDefs"
 	_ "github.com/mattn/go-sqlite3" // SQLite driver
 	zmq "github.com/pebbe/zmq4"     // ZeroMQ

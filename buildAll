@@ -2,9 +2,7 @@
 
 ./formatAll
 
-cd eddnlistener
 go build eddnlistener.go
-cd ..
 go build eddpd.go
 go build importbodies.go
 go build importstations.go
