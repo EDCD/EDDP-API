@@ -6,7 +6,7 @@ Caching server for use with EDDI and EDDN.
 1. [Go, aka Golang](https://golang.org/dl/).
 1. sqlite3.
 1. [ZeroMQ](http://zeromq.org/intro:get-the-software). 
-  * On MacOs, `brew install zmq`.
+  * On macOS, `brew install zmq`.
   * On Debian `apt-get install libzmq3-dev`
 1. `./getDependencies` will get any Go dependencies.
 
@@ -41,6 +41,12 @@ Environment variable          | Default value               | Meaning
 * Review the files `systemd_configs/eddpd.service.txt` and `systemd_configs/eddnlistener.service.txt`. These assume an installation path of `/var/go/EDDP-API`, so change that if necessary.
 * If you want to set any environment variables for the processes, put them in `eddpd.env` and `eddnlistener.env`, one per line, in the form `NAME=value`.
 * Copy `eddpd.service.txt` and `eddnlistener.service.txt` **without the `.txt` suffix** to `/etc/systemd/system/` (the `.txt` suffix is only there to stop macOS from misinterpreting the file type).
+```
+cd systemd_configs
+cp eddpd.service.txt /etc/systemd/system/eddpd.service
+cp eddnlistener.service.txt /etc/systemd/system/eddnlistener.service
+cd ..
+```
 * Start the services:
 ```
 systemctl start eddpd
