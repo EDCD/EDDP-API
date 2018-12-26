@@ -1,0 +1,20 @@
+# For documentation of these settings see: man systemd.unit, man systemd.service and man systemd.exec
+
+[Unit]
+Description=EDDN listener for Elite Dangerous Data Provider (EDDP)
+Documentation=https://github.com/EDCD/EDDP-API
+
+[Service]
+ExecStart=/var/go/EDDP-API/eddnlistener
+WorkingDirectory=/var/go/EDDP-API
+EnvironmentFile=-/var/go/EDDP-API/eddnlistener.env
+StandardOutput=null
+StandardError=journal
+SyslogIdentifier=eddnlistener
+User=www-data
+Group=www-data
+Type=simple
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target

@@ -7,7 +7,7 @@ Caching server for use with EDDI and EDDN.
 1. sqlite3.
 1. [ZeroMQ](http://zeromq.org/intro:get-the-software). 
   * On MacOs, `brew install zmq`.
-  * On Debian `apt-get install libzmq5` (?)
+  * On Debian `apt-get install libzmq3-dev`
 1. `./getDependencies` will get any Go dependencies.
 
 ## Configuration
@@ -31,11 +31,28 @@ Environment variable          | Default value               | Meaning
 
 * `refreshEDDB` to fetch the latest data from EDDB to `${dataDir}/eddb`. At the time of writing this totals about 3.5GB). This script calls ...
 * `rebuild` to import this fetched data into SQLite. On a 2011 MacBook Air this can take around 12 min and the resulting SQLlite file is around 8.5GB. Once it completes, you need to
-  * manually stop the servers (instructions to follow).
+  * manually stop the servers `systemctl stop eddpd; systemctl stop eddnlistener`.
   * replace `${dataDir}/sqlite/eddp.sqlite` with `${dataDir}/sqlite/eddp-new.sqlite`
-  * restart the servers (instructions to follow).
+  * restart the servers `systemctl start eddpd; systemctl start eddnlistener`.
   * The raw data in `${dataDir}/eddb` can then be zipped or discarded.
 
 ## Server Deployment
 
-To follow.
+* Review the files `systemd_configs/eddpd.service.txt` and `systemd_configs/eddnlistener.service.txt`. These assume an installation path of `/var/go/EDDP-API`, so change that if necessary.
+* If you want to set any environment variables for the processes, put them in `eddpd.env` and `eddnlistener.env`, one per line, in the form `NAME=value`.
+* Copy `eddpd.service.txt` and `eddnlistener.service.txt` **without the `.txt` suffix** to `/etc/systemd/system/` (the `.txt` suffix is only there to stop macOS from misinterpreting the file type).
+* Start the services:
+```
+systemctl start eddpd
+systemctl start eddnlistener
+```
+* Check that it is ok:
+```
+systemctl status eddpd
+systemctl status eddnlistener
+```
+* Enable automatic startup:
+```
+systemctl enable eddpd
+systemctl enable eddnlistener
+```

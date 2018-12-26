@@ -1,0 +1,20 @@
+# For documentation of these settings see: man systemd.unit, man systemd.service and man systemd.exec
+
+[Unit]
+Description=Webserver for Elite Dangerous Data Provider (EDDP)
+Documentation=https://github.com/EDCD/EDDP-API
+
+[Service]
+ExecStart=/var/go/EDDP-API/eddpd
+WorkingDirectory=/var/go/EDDP-API
+EnvironmentFile=-/var/go/EDDP-API/eddpd.env
+StandardOutput=journal
+StandardError=inherit
+SyslogIdentifier=eddpd
+User=www-data
+Group=www-data
+Type=simple
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
