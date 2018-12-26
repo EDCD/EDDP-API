@@ -25,7 +25,7 @@ Environment variable          | Default value               | Meaning
 * `./getDependencies` to get all required Go packages.
 * `./formatAll` to format all Go source according to standards (Go is rather prescriptive about that).
 * `./buildAll` to build all Go source.
-  * Currently each top-level `.go` file must be added manually to this script, and its build product added to `.gitignore`.
+  * Currently each build product must be manually added to `.gitignore`.
 
 ## Usage
 

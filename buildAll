@@ -2,8 +2,8 @@
 
 ./formatAll
 
-go build eddnlistener.go
-go build eddpd.go
-go build importbodies.go
-go build importstations.go
-go build importsystems.go
+# we can't simply use `go build .` or `go build *.go` because several files implement package 'main'
+for f in *.go; do
+	echo Building $f
+	go build $f
+done
