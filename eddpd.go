@@ -22,7 +22,7 @@ import (
 	"github.com/nytimes/gziphandler"       // GZip handler
 )
 
-var version string = "2.2.0"
+var version string = "3.3.2"
 
 // Database connections
 var eddpDb *sql.DB
