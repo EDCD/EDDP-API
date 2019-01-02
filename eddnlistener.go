@@ -24,6 +24,7 @@ import (
 var dataDir string = config.GetEnvWithDefault("EDDP_API_DATA_DIR", "./data")
 var eddnListenerURL string = config.GetEnvWithDefault("EDDP_API_EDDN_LISTENER_URL", "tcp://eddn.edcd.io:9500")
 var eddnPublisherURL string = config.GetEnvWithDefault("EDDP_API_EDDN_PUBLISHER_URL", "tcp://*:5556")
+var msgChannelBufferCount int = 100
 
 // Database connections
 var eddpDb *sql.DB
@@ -70,16 +71,37 @@ func main() {
 		publisher.Bind(eddnPublisherURL)
 		defer publisher.Close()
 
+		msgChannel := make(chan [][]byte, msgChannelBufferCount)
+		quitChannel := make(chan bool)
+		go HandlerLoop(publisher, msgChannel, quitChannel)
+
 		for {
 			raw, err := subscriber.RecvMessageBytes(0)
 			if err != nil {
+				quitChannel <- true
 				break
 			}
-			var msg bytes.Buffer
-			r, err := zlib.NewReader(bytes.NewReader(raw[0]))
-			io.Copy(&msg, r)
-			r.Close()
-			HandleMessage(&msg, publisher)
+			msgChannel <- raw
+		}
+	}
+}
+
+func HandlerLoop(publisher *zmq.Socket, msgChannel chan [][]byte, quitChannel chan bool) {
+	for {
+		select {
+		case <-quitChannel:
+			break
+		case raw := <-msgChannel:
+			{
+				go func() {
+					var msg bytes.Buffer
+					r, _ := zlib.NewReader(bytes.NewReader(raw[0]))
+					// TODO: not convinced we need this copy -- pass interfaces instead
+					io.Copy(&msg, r)
+					r.Close()
+					HandleMessage(&msg, publisher)
+				}()
+			}
 		}
 	}
 }
